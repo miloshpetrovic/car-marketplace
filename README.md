@@ -38,7 +38,7 @@ System utilizes simple data model with car Manufacturer, car Model and used Car 
 | `BMW` | `525` | 
 
 
-#### System setup
+## System setup
 
 Technicaly system runtime is organized with 5 networked containers, each for one key component of the system: Inventory, Marketplace, Postgres, Elasticsearch, Kafka. Each component have corresponding DockerHub image which enables utilization of docker-compose tool in order setup system network. Content of docker-compose.yml file follows. 
 
@@ -122,6 +122,88 @@ If everything is ok, after command execution all 5 containers (services) should 
 docker ps
 ```
 
-#### System testing
+## Inventory operations
+
+Inventory service is exposed on http://localhost:8080/smg. 
+All further paths are relative to above to context root. 
+
+Get all Manufacturers
+```
+GET /manufacturers
+```
+Get details for Volvo 
+```
+GET /manufacturers/volvo
+```
+Get all Volvo models
+```
+GET /manufacturers/volvo/models
+```
+Get details for Volvo S40
+```
+GET /manufacturers/volvo/models/s40
+```
+Get all Volvo S40 used cars
+```
+GET /manufacturers/volvo/models/s40/cars
+```
+Create new Volvo S40 used car 
+```
+POST /manufacturers/volvo/models/s40/cars
+
+Body:
+{
+    "mileage":4343434,
+    "year":2010,
+    "price":20000,
+    "vin":"asdf3fsfssdfaf23"
+}
+
+Response:
+{
+    "id":1
+    "manufacturer":"Volvo", 
+    "model":"S40",
+    "mileage":4343434,
+    "year":2010,
+    "price":20000,
+    "vin":"asdf3fsfssdfaf23"
+}
+```
+
+Update Volvo S40 used car 
+```
+PUT /cars/1
+
+Body/Response:
+{
+    "id":1
+    "manufacturer":"Volvo", 
+    "model":"S40",
+    "mileage":4343434,
+    "year":2012,
+    "price":20000,
+    "vin":"asdf3fsfssdfaf23"
+}
+
+```
+
+Update Volvo S40 used car 
+```
+DELETE /cars/1
+```
+
+## Marketplace operations
+
+Marketplace service is exposed on http://localhost:8181/smg/marketplace.
+All further paths are relative to above to context root. 
+
+
+Multicriteria car marketplace search with pagination and sorting
+
+```
+GET /cars?manufacturer=volvo&model=s40&bodyType=hatchback&fuelType=petrol&powerFrom=80&powerTo=120
+            &yearFrom=2000&yearTo=2020&priceFrom=5000&priceTo=10000&page=3&size=10sort=model.keyword
+```
 
 
