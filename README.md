@@ -45,7 +45,7 @@ Technicaly system runtime is organized with 5 networked containers, each for one
 
 
 
-```
+```yaml
 version: "2"
 
 services:
@@ -128,27 +128,27 @@ Inventory service is exposed on http://localhost:8080/smg.
 All further paths are relative to above to context root. 
 
 Get all Manufacturers
-```
+```http
 GET /manufacturers
 ```
 Get details for Volvo 
-```
+```http
 GET /manufacturers/volvo
 ```
 Get all Volvo models
-```
+```http
 GET /manufacturers/volvo/models
 ```
 Get details for Volvo S40
-```
+```http
 GET /manufacturers/volvo/models/s40
 ```
 Get all Volvo S40 used cars
-```
+```http
 GET /manufacturers/volvo/models/s40/cars
 ```
 Create new Volvo S40 used car 
-```
+```http
 POST /manufacturers/volvo/models/s40/cars
 
 Body:
@@ -172,7 +172,7 @@ Response:
 ```
 
 Update Volvo S40 used car 
-```
+```http
 PUT /cars/1
 
 Body/Response:
@@ -188,8 +188,8 @@ Body/Response:
 
 ```
 
-Update Volvo S40 used car 
-```
+Delete Volvo S40 used car 
+```http
 DELETE /cars/1
 ```
 
@@ -201,16 +201,20 @@ All further paths are relative to above to context root.
 
 Multicriteria car marketplace search with pagination and sorting
 
+
+```http
+GET /cars?manufacturer=volvo&model=s40
+            &bodyType=hatchback&fuelType=petrol
+            &powerFrom=80&powerTo=120
+            &yearFrom=2000&yearTo=2020
+            &priceFrom=5000&priceTo=10000
+            &page=3&size=10sort=model.keyword
+```
+
 ## TO DO 
 
 1. Improve testing (add more unit tests, introduce integration tests, utilize Testcontainers)
 2. Improve logging
 3. Improve chaching (currently, caching is inefficinet and  not optimal - same page is cached multiple times for different criteria)
 4. Improve resilience (analyze criterias and capabilities of operations to be retried - e.g. idempotence, retriable exceptions, etc)
-
-```
-GET /cars?manufacturer=volvo&model=s40&bodyType=hatchback&fuelType=petrol&powerFrom=80&powerTo=120
-            &yearFrom=2000&yearTo=2020&priceFrom=5000&priceTo=10000&page=3&size=10sort=model.keyword
-```
-
 
