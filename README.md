@@ -201,6 +201,13 @@ All further paths are relative to above to context root.
 
 Multicriteria car marketplace search with pagination and sorting
 
+## TO DO 
+
+1. Improve testing (add more unit tests, introduce integration tests, utilize Testcontainers)
+2. Improve logging
+3. Improve chaching (currently, caching is inefficinet and  not optimal - same page is cached multiple times for different criteria)
+4. Improve resilience (analyze criterias and capabilities of operations to be retried - e.g. idempotence, retriable exceptions, etc)
+
 ```
 GET /cars?manufacturer=volvo&model=s40&bodyType=hatchback&fuelType=petrol&powerFrom=80&powerTo=120
             &yearFrom=2000&yearTo=2020&priceFrom=5000&priceTo=10000&page=3&size=10sort=model.keyword
